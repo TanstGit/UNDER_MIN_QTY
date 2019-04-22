@@ -1,0 +1,14 @@
+SELECT
+  PI.Item_No AS 'Supply_No',
+  PI.Brief_Description,
+  PI.Min_Quantity AS 'Min_Inv',
+  PIL.Quantity AS 'Inv_Qty'
+  
+FROM Purchasing_v_Item AS PI
+
+LEFT JOIN Purchasing_v_Item_Location AS PIL
+  ON PIL.Item_Key = PI.Item_Key
+
+WHERE (PI.Min_Quantity > 0)
+  AND (PI.Active = 1)
+  AND (PIL.Quantity < PI.Min_Quantity)
